@@ -1,0 +1,130 @@
+{
+  "sap_excel": {
+    "file_path": "path/to/sap_export.xlsx",
+    "sheet_name": "Sheet1",
+    "description": "SAP EAM Excel export file"
+  },
+  
+  "downstream_systems": {
+    
+    "System1_MSSQL": {
+      "db_type": "mssql",
+      "connection": {
+        "host": "mssql-server.company.com",
+        "port": 1433,
+        "database": "ProductionDB",
+        "username": "db_user",
+        "password": "secure_password",
+        "driver": "ODBC Driver 17 for SQL Server"
+      },
+      "table_name": "equipment_master",
+      "schema": "dbo",
+      "key_columns": ["Equipment_ID", "Plant_Code"],
+      "column_mappings": [
+        {
+          "source_column": "Equipment Number",
+          "target_column": "Equipment_ID",
+          "description": "Unique equipment identifier"
+        },
+        {
+          "source_column": "Plant",
+          "target_column": "Plant_Code",
+          "description": "Plant location code"
+        },
+        {
+          "source_column": "Description",
+          "target_column": "Equipment_Description",
+          "description": "Equipment description"
+        },
+        {
+          "source_column": "Status",
+          "target_column": "Equipment_Status",
+          "description": "Current status"
+        },
+        {
+          "source_column": "Functional Location",
+          "target_column": "Functional_Loc",
+          "description": "Functional location"
+        }
+      ]
+    },
+    
+    "System2_Oracle": {
+      "db_type": "oracle",
+      "connection": {
+        "host": "oracle-server.company.com",
+        "port": 1521,
+        "service_name": "PRODDB",
+        "username": "oracle_user",
+        "password": "secure_password"
+      },
+      "table_name": "EQP_MASTER",
+      "schema": "MAINTENANCE",
+      "key_columns": ["Equipment Number", "Plant"],
+      "column_mappings": [
+        {
+          "source_column": "Equipment Number",
+          "target_column": "EQUIP_NUM",
+          "description": "Equipment number"
+        },
+        {
+          "source_column": "Plant",
+          "target_column": "PLANT_ID",
+          "description": "Plant identifier"
+        },
+        {
+          "source_column": "Description",
+          "target_column": "EQUIP_DESC",
+          "description": "Equipment description"
+        },
+        {
+          "source_column": "Manufacturer",
+          "target_column": "MFR_NAME",
+          "description": "Manufacturer name"
+        },
+        {
+          "source_column": "Model",
+          "target_column": "MODEL_NUM",
+          "description": "Model number"
+        }
+      ]
+    },
+    
+    "System3_Warehouse": {
+      "db_type": "mssql",
+      "connection": {
+        "host": "warehouse-db.company.com",
+        "port": 1433,
+        "database": "DataWarehouse",
+        "username": "dw_user",
+        "password": "secure_password",
+        "driver": "ODBC Driver 17 for SQL Server"
+      },
+      "table_name": "dim_equipment",
+      "schema": "staging",
+      "key_columns": ["Equipment Number"],
+      "column_mappings": [
+        {
+          "source_column": "Equipment Number",
+          "target_column": "equipment_id",
+          "description": "Equipment ID"
+        },
+        {
+          "source_column": "Description",
+          "target_column": "equipment_name",
+          "description": "Equipment name"
+        },
+        {
+          "source_column": "Installation Date",
+          "target_column": "install_date",
+          "description": "Installation date"
+        },
+        {
+          "source_column": "Cost Center",
+          "target_column": "cost_center_code",
+          "description": "Cost center"
+        }
+      ]
+    }
+  }
+}
